@@ -54,6 +54,10 @@ jQuery(function(){
     if(aGalleryData.autolightbox === true)
     {
       console.log('trying to auto start the lightbox');
+    
+      var $eFirst = jQuery("a.lightbox, a[rel^='lightbox']").first();
+      $eFirst.click();  
+      
       //jQuery.prettyPhoto.open();
     }
     gallery_plugin();
