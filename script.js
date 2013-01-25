@@ -41,12 +41,21 @@ function gallery_pageselect(e){
 
 // === main ===
 jQuery(function(){
-    jQuery("a.lightbox, a[rel^='lightbox']").prettyPhoto({
+    var aGallery = {
         overlay_gallery: false,
-        slideshow: 2000,
+        slideshow: aGalleryData.slideshow_duration,
+        autoplay_slideshow: aGalleryData.autoslideshow,
+        theme: aGalleryData.slideshow_theme,
         description_src: 'longdesc'
-    });
-
+    };
+    
+    jQuery("a.lightbox, a[rel^='lightbox']").prettyPhoto(aGallery);
+    
+    if(aGalleryData.autolightbox === true)
+    {
+      console.log('trying to auto start the lightbox');
+      //jQuery.prettyPhoto.open();
+    }
     gallery_plugin();
 
     // hide all pages except the first one

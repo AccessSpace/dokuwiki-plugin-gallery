@@ -92,7 +92,13 @@ class syntax_plugin_gallery extends DokuWiki_Syntax_Plugin {
         $data['limit']    = 0;
         $data['offset']   = 0;
         $data['paginate'] = 0;
-
+        
+        $data['slideshow_duration'] = $this->getConf('slideshow_duration');
+        $data['slideshow_theme'] = $this->getConf('slideshow_theme');
+        $data['autoslideshow'] = false;
+        $data['autolightbox'] = false;
+        
+        
         // parse additional options
         $params = $this->getConf('options').','.$params;
         $params = preg_replace('/[,&\?]+/',' ',$params);
@@ -105,6 +111,12 @@ class syntax_plugin_gallery extends DokuWiki_Syntax_Plugin {
                 $data['sort'] = 'date';
             }elseif($param == 'modsort'){
                 $data['sort'] = 'mod';
+            }elseif($param == 'autoslideshow'){
+                $data['autoslideshow'] = true;
+                $data['lightbox'] = true;
+            }elseif($param == 'autolightbox'){
+                $data['autolightbox'] = true;
+                $data['lightbox'] = true;
             }elseif(preg_match('/^=(\d+)$/',$param,$match)){
                 $data['limit'] = $match[1];
             }elseif(preg_match('/^\+(\d+)$/',$param,$match)){
@@ -136,8 +148,7 @@ class syntax_plugin_gallery extends DokuWiki_Syntax_Plugin {
 
         // implicit direct linking?
         if($data['lightbox']) $data['direct']   = true;
-
-
+        
         return $data;
     }
 
@@ -326,7 +337,17 @@ class syntax_plugin_gallery extends DokuWiki_Syntax_Plugin {
         global $conf;
         global $lang;
         $ret = '';
-
+        
+        $aGalleryData = array();
+        $aGalleryData['slideshow_duration'] = $data['slideshow_duration'];
+        $aGalleryData['slideshow_theme'] = $data['slideshow_theme'];
+        $aGalleryData['autoslideshow'] = $data['autoslideshow'];
+        $aGalleryData['autolightbox'] = $data['autolightbox'];
+        
+        $ret .= '<script type="text/javascript">/*<![CDATA[*/
+        var aGalleryData = '.json_encode($aGalleryData).'
+/*!]]>*/</script>';
+        
         $files = $this->_findimages($data);
 
         //anything found?

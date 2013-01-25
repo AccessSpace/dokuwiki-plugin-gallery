@@ -13,3 +13,8 @@ $conf['cols']             = 5;
 
 $conf['sort'] = 'file';
 $conf['options'] = 'cache';
+
+$conf['slideshow_theme'] = 'pp_default';
+$conf['slideshow_duration'] = 2000;
+
+
