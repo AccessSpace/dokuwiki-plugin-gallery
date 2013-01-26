@@ -97,7 +97,7 @@ class syntax_plugin_gallery extends DokuWiki_Syntax_Plugin {
         $data['slideshow_theme'] = $this->getConf('slideshow_theme');
         $data['autoslideshow'] = false;
         $data['autolightbox'] = false;
-        
+        $data['lightbox_title'] = false;
         
         // parse additional options
         $params = $this->getConf('options').','.$params;
@@ -113,6 +113,9 @@ class syntax_plugin_gallery extends DokuWiki_Syntax_Plugin {
                 $data['sort'] = 'mod';
             }elseif($param == 'autoslideshow'){
                 $data['autoslideshow'] = true;
+                $data['lightbox'] = true;
+            }elseif($param == 'lightbox_title'){
+                $data['lightbox_title'] = true;
                 $data['lightbox'] = true;
             }elseif($param == 'autolightbox'){
                 $data['autolightbox'] = true;
@@ -343,6 +346,7 @@ class syntax_plugin_gallery extends DokuWiki_Syntax_Plugin {
         $aGalleryData['slideshow_theme'] = $data['slideshow_theme'];
         $aGalleryData['autoslideshow'] = $data['autoslideshow'];
         $aGalleryData['autolightbox'] = $data['autolightbox'];
+        $aGalleryData['lightbox_title'] = $data['lightbox_title'];
         
         $ret .= '<script type="text/javascript">/*<![CDATA[*/
         var aGalleryData = '.json_encode($aGalleryData).'

@@ -43,6 +43,7 @@ function gallery_pageselect(e){
 jQuery(function(){
     var aGallery = {
         overlay_gallery: false,
+        show_title: aGalleryData.lightbox_title,
         slideshow: aGalleryData.slideshow_duration,
         autoplay_slideshow: aGalleryData.autoslideshow,
         theme: aGalleryData.slideshow_theme,
@@ -50,16 +51,14 @@ jQuery(function(){
     };
     
     jQuery("a.lightbox, a[rel^='lightbox']").prettyPhoto(aGallery);
+    //console.log("aGallery =", aGallery);
     
     if(aGalleryData.autolightbox === true)
     {
-      console.log('trying to auto start the lightbox');
-    
       var $eFirst = jQuery("a.lightbox, a[rel^='lightbox']").first();
       $eFirst.click();  
-      
-      //jQuery.prettyPhoto.open();
     }
+    
     gallery_plugin();
 
     // hide all pages except the first one

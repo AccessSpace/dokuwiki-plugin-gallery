@@ -12,7 +12,7 @@ $meta['image_height']     = array('numeric');
 $meta['cols']             = array('numeric');
 
 $meta['sort']    = array('multichoice', '_choices' => array('file','mod','date','title'));
-$meta['options'] = array('multicheckbox', '_choices' => array('cache','crop','direct','lightbox','random','reverse','showname','showtitle','autoslideshow','autolightbox'));
+$meta['options'] = array('multicheckbox', '_choices' => array('cache','crop','direct','lightbox','random','reverse','showname','showtitle','autoslideshow','autolightbox','lightbox_title'));
 
 $meta['slideshow_theme'] = array('multichoice', '_choices' => array( 'pp_default', 'light_rounded', 'dark_rounded', 'light_square', 'dark_square', 'facebook'));
 $meta['slideshow_duration'] = array('numeric');
