@@ -99,6 +99,9 @@ class syntax_plugin_gallery extends DokuWiki_Syntax_Plugin {
         $data['autolightbox'] = false;
         $data['lightbox_title'] = false;
         
+        $data['big_box_div_class'] = false;
+        
+        
         // parse additional options
         $params = $this->getConf('options').','.$params;
         $params = preg_replace('/[,&\?]+/',' ',$params);
@@ -120,6 +123,9 @@ class syntax_plugin_gallery extends DokuWiki_Syntax_Plugin {
             }elseif($param == 'autolightbox'){
                 $data['autolightbox'] = true;
                 $data['lightbox'] = true;
+            }elseif($param == 'big_box'){
+                $data['big_box_div_class'] = 'wrap_gallery_target';
+                
             }elseif(preg_match('/^=(\d+)$/',$param,$match)){
                 $data['limit'] = $match[1];
             }elseif(preg_match('/^\+(\d+)$/',$param,$match)){
@@ -150,7 +156,9 @@ class syntax_plugin_gallery extends DokuWiki_Syntax_Plugin {
         }
 
         // implicit direct linking?
+        if($data['big_box_div_class']) $data['lightbox']   = true;
         if($data['lightbox']) $data['direct']   = true;
+        
         
         return $data;
     }
@@ -347,6 +355,7 @@ class syntax_plugin_gallery extends DokuWiki_Syntax_Plugin {
         $aGalleryData['autoslideshow'] = $data['autoslideshow'];
         $aGalleryData['autolightbox'] = $data['autolightbox'];
         $aGalleryData['lightbox_title'] = $data['lightbox_title'];
+        $aGalleryData['big_box_div_class'] = $data['big_box_div_class']?$data['big_box_div_class']:false;
         
         $ret .= '<script type="text/javascript">/*<![CDATA[*/
         var aGalleryData = '.json_encode($aGalleryData).'

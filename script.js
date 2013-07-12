@@ -41,32 +41,56 @@ function gallery_pageselect(e){
 
 // === main ===
 jQuery(function(){
-    var aGallery = {
-        overlay_gallery: false,
-        show_title: aGalleryData.lightbox_title,
-        slideshow: aGalleryData.slideshow_duration,
-        autoplay_slideshow: aGalleryData.autoslideshow,
-        theme: aGalleryData.slideshow_theme,
-        description_src: 'longdesc'
-    };
-    
-    jQuery("a.lightbox, a[rel^='lightbox']").prettyPhoto(aGallery);
-    //console.log("aGallery =", aGallery);
-    
-    if(aGalleryData.autolightbox === true)
+    if(aGalleryData.big_box_div_class)
     {
+      jQuery("a.lightbox, a[rel^='lightbox']").click(function(evt){
+          var sImagePath = jQuery(evt.currentTarget).attr('href');
+          jQuery('<img />')
+              .attr('src', sImagePath)
+              .load(function(){              
+                  jQuery('.'+aGalleryData.big_box_div_class).fadeOut(function(){
+                   jQuery(this).html('<img src="'+sImagePath+'" />').fadeIn()   
+                      ;
+                  });
+          
+              });
+            
+              
+      
+          return false;
+      });
       var $eFirst = jQuery("a.lightbox, a[rel^='lightbox']").first();
-      $eFirst.click();  
+        $eFirst.click(); 
+      
     }
-    
-    gallery_plugin();
-
-    // hide all pages except the first one
-    var $pages = jQuery('div.gallery_page');
-    $pages.hide();
-    $pages.eq(0).show();
-
-    // attach page selector
-    jQuery('a.gallery_pgsel').click(gallery_pageselect);
-});
+    else
+    {
+      var aGallery = {
+          overlay_gallery: false,
+          show_title: aGalleryData.lightbox_title,
+          slideshow: aGalleryData.slideshow_duration,
+          autoplay_slideshow: aGalleryData.autoslideshow,
+          theme: aGalleryData.slideshow_theme,
+          description_src: 'longdesc'
+      };
+        
+      jQuery("a.lightbox, a[rel^='lightbox']").prettyPhoto(aGallery);
+      
+      if(aGalleryData.autolightbox === true)
+      {
+        var $eFirst = jQuery("a.lightbox, a[rel^='lightbox']").first();
+        $eFirst.click();  
+      }
+      
+      gallery_plugin();
+  
+      // hide all pages except the first one
+      var $pages = jQuery('div.gallery_page');
+      $pages.hide();
+      $pages.eq(0).show();
+  
+      // attach page selector
+      jQuery('a.gallery_pgsel').click(gallery_pageselect);
+    }
+  });
 
